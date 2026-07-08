@@ -1,0 +1,43 @@
+{
+  "name": "resolveai",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "next": "^15.0.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "@supabase/ssr": "^0.5.2",
+    "@supabase/supabase-js": "^2.45.4",
+    "stripe": "^17.3.0",
+    "resend": "^4.0.0",
+    "react-email": "^3.0.0",
+    "@react-email/components": "^0.0.28",
+    "@upstash/ratelimit": "^2.0.5",
+    "@upstash/redis": "^1.34.3",
+    "@sentry/nextjs": "^8.40.0",
+    "posthog-js": "^1.190.0",
+    "framer-motion": "^11.15.0",
+    "lucide-react": "^0.468.0",
+    "lenis": "^1.1.18"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.2",
+    "@types/node": "^22.10.0",
+    "@types/react": "^18.3.17",
+    "@types/react-dom": "^18.3.5",
+    "tailwindcss": "^4.0.0",
+    "@tailwindcss/postcss": "^4.0.0",
+    "postcss": "^8.4.49",
+    "eslint": "^9.17.0",
+    "eslint-config-next": "^15.0.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}
