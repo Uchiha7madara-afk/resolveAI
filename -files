@@ -1,0 +1,14 @@
+[33mcommit 9bf6241d4a2f480f4eeaf7a3dab8ad401d8021f8[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m
+Author: uchiha_madara <aniketkumarchoudhary629@gmail.com>
+Date:   Thu Jul 9 03:35:47 2026 +0530
+
+    fix: update gitignore
+
+ .env.local               |   2 [32m+[m
+ app/dashboard/layout.tsx |  41 [32m++++++++++[m
+ app/dashboard/page.tsx   | 205 [32m+++++++++++++++++++++++++++++++++++++++++++++++[m
+ app/login/page.tsx       | 128 [32m+++++++++++++++++++[m[31m----------[m
+ components/Sidebar.tsx   | 108 [32m+++++++++++++++++++++++++[m
+ components/TopBar.tsx    |  22 [32m+++++[m
+ utils/auth.ts            |  41 [32m++++++++++[m
+ 7 files changed, 505 insertions(+), 42 deletions(-)

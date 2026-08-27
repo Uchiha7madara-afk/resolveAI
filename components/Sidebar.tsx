@@ -10,7 +10,7 @@ import {
   Settings,
   LogOut,
 } from "lucide-react";
-import { getCurrentUser, logout } from "../utils/auth";
+import { createClient } from "../utils/supabase/client";
 
 const navItems = [
   { label: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
@@ -28,12 +28,19 @@ export default function Sidebar() {
   );
 
   useEffect(() => {
-    setUser(getCurrentUser());
+    const supabase = createClient();
+    supabase.auth.getUser().then(({ data: { user } }: { data: { user: { email?: string } | null } }) => {
+      if (user?.email) {
+        setUser({ email: user.email, name: user.email.split("@")[0] });
+      }
+    });
   }, []);
 
-  const handleLogout = () => {
-    logout();
+  const handleLogout = async () => {
+    const supabase = createClient();
+    await supabase.auth.signOut();
     router.push("/login");
+    router.refresh();
   };
 
   return (
@@ -106,3 +113,4 @@ export default function Sidebar() {
     </aside>
   );
 }
+

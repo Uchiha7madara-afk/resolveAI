@@ -1,0 +1,232 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+
+type DemoLine =
+  | { type: "comment"; text: string }
+  | { type: "code"; text: string }
+  | { type: "blank" }
+  | { type: "log"; text: string; status: "ok" | "pending" }
+  | { type: "result"; text: string };
+
+const DEMO_SCRIPT: DemoLine[] = [
+  { type: "comment", text: "// Sample negotiation flow (demo data, not a real account)" },
+  { type: "code", text: "const agent = new VoiceAgent(demoAccount);" },
+  { type: "code", text: "agent.connect(provider.retentionLine);" },
+  { type: "blank" },
+  { type: "log", text: "> Authenticating with provider...", status: "ok" },
+  { type: "log", text: "> Cross-referencing tier promotions...", status: "ok" },
+  { type: "log", text: "> Opening negotiation script...", status: "pending" },
+  { type: "log", text: "> Waiting for representative response...", status: "pending" },
+  { type: "result", text: "> Demo complete — illustrative only, not a live customer session." },
+];
+
+function useOnScreen(ref: React.RefObject<HTMLElement | null>, threshold = 0.25) {
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    if (!ref.current) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          obs.disconnect();
+        }
+      },
+      { threshold }
+    );
+    obs.observe(ref.current);
+    return () => obs.disconnect();
+  }, [ref, threshold]);
+  return visible;
+}
+
+function useTypewriterLines(
+  lines: DemoLine[],
+  { active, charDelay = 18, lineDelay = 260, loop = true }: { active: boolean; charDelay?: number; lineDelay?: number; loop?: boolean }
+) {
+  const [renderedLines, setRenderedLines] = useState<DemoLine[]>([]);
+  const [cursorOn, setCursorOn] = useState(true);
+
+  useEffect(() => {
+    if (!active) return;
+    let cancelled = false;
+    let lineIndex = 0;
+    let charIndex = 0;
+    let currentText = "";
+
+    setRenderedLines([]);
+
+    function typeNext() {
+      if (cancelled) return;
+      const line = lines[lineIndex];
+
+      if (!line) {
+        if (loop) {
+          setTimeout(() => {
+            if (cancelled) return;
+            lineIndex = 0;
+            charIndex = 0;
+            currentText = "";
+            setRenderedLines([]);
+            typeNext();
+          }, 1400);
+        }
+        return;
+      }
+
+      if (line.type === "blank") {
+        setRenderedLines((prev) => [...prev, line]);
+        lineIndex += 1;
+        charIndex = 0;
+        currentText = "";
+        setTimeout(typeNext, lineDelay);
+        return;
+      }
+
+      if (charIndex === 0) {
+        setRenderedLines((prev) => [...prev, { ...line, text: "" } as DemoLine]);
+      }
+
+      if (charIndex < line.text.length) {
+        currentText += line.text[charIndex];
+        const snapshot = currentText;
+        setRenderedLines((prev) => {
+          const next = [...prev];
+          next[next.length - 1] = { ...line, text: snapshot } as DemoLine;
+          return next;
+        });
+        charIndex += 1;
+        setTimeout(typeNext, charDelay);
+      } else {
+        lineIndex += 1;
+        charIndex = 0;
+        currentText = "";
+        setTimeout(typeNext, lineDelay);
+      }
+    }
+
+    typeNext();
+    return () => {
+      cancelled = true;
+    };
+  }, [active, lines, charDelay, lineDelay, loop]);
+
+  useEffect(() => {
+    const blink = setInterval(() => setCursorOn((c) => !c), 500);
+    return () => clearInterval(blink);
+  }, []);
+
+  return { renderedLines, cursorOn };
+}
+
+function StatusDot({ status }: { status: "ok" | "pending" }) {
+  const color = status === "ok" ? "bg-emerald-400" : "bg-amber-400";
+  return (
+    <span className="relative inline-flex h-2 w-2 mr-2 shrink-0">
+      {status === "pending" && (
+        <span className={`absolute inline-flex h-full w-full rounded-full ${color} opacity-60 animate-ping`} />
+      )}
+      <span className={`relative inline-flex h-2 w-2 rounded-full ${color}`} />
+    </span>
+  );
+}
+
+export default function EnterpriseTrustSection() {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const visible = useOnScreen(sectionRef);
+  const { renderedLines, cursorOn } = useTypewriterLines(DEMO_SCRIPT, { active: visible });
+
+  return (
+    <div ref={sectionRef} className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8">
+      {/* Left: honest security copy */}
+      <div
+        className={`lg:col-span-5 border border-white/10 bg-[#0a0a0a] rounded-xl p-10 flex flex-col justify-center relative overflow-hidden transition-all duration-700 ease-out ${
+          visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+        }`}
+      >
+        <div className="absolute -bottom-20 -left-20 w-64 h-64 bg-zinc-800/20 rounded-full blur-[80px]" />
+        <h2 className="text-3xl font-medium tracking-tight mb-6">Built with security in mind</h2>
+        <ul className="space-y-6 text-sm text-zinc-400">
+          <li className="flex items-start gap-4">
+            <div className="p-2 bg-white/5 rounded text-zinc-300">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+              </svg>
+            </div>
+            <div>
+              <strong className="block text-white mb-1">Encrypted in transit and at rest</strong>
+              Data moving to and from the agent is encrypted over HTTPS/TLS, and stored provider
+              credentials sit behind standard cloud-provider encryption at rest.
+            </div>
+          </li>
+          <li className="flex items-start gap-4">
+            <div className="p-2 bg-white/5 rounded text-zinc-300">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+              </svg>
+            </div>
+            <div>
+              <strong className="block text-white mb-1">Credentials never touch our logs</strong>
+              Provider logins are used to authenticate the call and are not written to
+              application logs or analytics.
+            </div>
+          </li>
+        </ul>
+        <p className="mt-8 text-xs text-zinc-500">
+          We&apos;re early stage and haven&apos;t pursued formal certifications (e.g. SOC 2) yet —
+          happy to walk through our actual architecture on a call.
+        </p>
+      </div>
+
+      {/* Right: labeled live demo terminal */}
+      <div
+        className={`lg:col-span-7 border border-white/10 bg-[#0a0a0a] rounded-xl p-8 flex flex-col transition-all duration-700 ease-out delay-150 ${
+          visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+        }`}
+      >
+        <div className="flex justify-between items-center border-b border-white/10 pb-4 mb-6">
+          <h3 className="text-lg font-medium">Agent walkthrough</h3>
+          <span className="rounded-full border border-indigo-500/40 bg-indigo-500/10 px-3 py-1 text-[11px] font-medium uppercase tracking-wide text-indigo-300">
+            Live demo · sample data
+          </span>
+        </div>
+
+        <div
+          className="relative overflow-hidden rounded-lg border border-white/5 bg-black p-5 font-mono text-[13px] leading-relaxed flex-1"
+          style={{ minHeight: "220px" }}
+        >
+          <div
+            className="pointer-events-none absolute -inset-1 opacity-40 blur-2xl"
+            style={{
+              background: "radial-gradient(120px 120px at 20% 0%, rgba(99,102,241,0.35), transparent 60%)",
+            }}
+          />
+          <div className="relative">
+            {renderedLines.map((line, i) => (
+              <div key={i} className="min-h-[1.4em]">
+                {line.type === "comment" && <span className="text-zinc-600">{line.text}</span>}
+                {line.type === "code" && <span className="text-indigo-400">{line.text}</span>}
+                {line.type === "blank" && <>&nbsp;</>}
+                {line.type === "log" && (
+                  <span className="flex items-center text-zinc-400">
+                    <StatusDot status={line.status} />
+                    {line.text}
+                  </span>
+                )}
+                {line.type === "result" && <span className="text-emerald-400">{line.text}</span>}
+              </div>
+            ))}
+            <span
+              className={`inline-block h-4 w-2 bg-indigo-400 align-middle ${cursorOn ? "opacity-100" : "opacity-0"}`}
+            />
+          </div>
+        </div>
+
+        <p className="mt-3 text-xs text-zinc-500">
+          This is a scripted illustration of the agent&apos;s flow, not a live customer session.
+        </p>
+      </div>
+    </div>
+  );
+}
