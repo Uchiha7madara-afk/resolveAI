@@ -1,5 +1,6 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import HeroVisual3D from "../components/HeroVisual3D";
+import EnterpriseTrustSection from "../components/EnterpriseTrustSection";
 
 export default function LandingPage() {
   return (
@@ -58,9 +59,9 @@ export default function LandingPage() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/10 text-xs font-medium text-emerald-400 mb-8">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              System Operational
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-indigo-500/20 bg-indigo-500/10 text-xs font-medium text-indigo-300 mb-8">
+              <span className="w-2 h-2 rounded-full bg-indigo-400 animate-pulse" />
+              Early access — accepting pilot users
             </div>
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter mb-6 leading-[1.1]">
               ALGORITHMICALLY <br />
@@ -134,30 +135,33 @@ export default function LandingPage() {
               </svg>
             </div>
             <div className="relative z-10 text-right text-xs font-mono text-zinc-500 mt-4">
-              Realized savings metrics:{" "}
-              <span className="text-emerald-400">+$867.00</span>
+              Illustrative negotiation trend{" "}
+              <span className="text-zinc-600">(sample data)</span>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 2. Supported Providers (Grayscale Marquee) */}
+      {/* 2. Bill Categories We Target (no partnership implied) */}
       <section className="border-y border-white/5 bg-black/40 py-10 px-6">
+        <p className="max-w-7xl mx-auto mb-6 text-center text-xs uppercase tracking-widest text-zinc-600">
+          Built to negotiate bills across
+        </p>
         <div className="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-12 text-zinc-600 font-bold text-2xl tracking-widest grayscale opacity-60">
           <span className="hover:text-white transition-colors duration-500 cursor-default">
-            AT&T
+            Internet &amp; Cable
           </span>
           <span className="hover:text-white transition-colors duration-500 cursor-default">
-            COMCAST
+            Wireless
           </span>
           <span className="hover:text-white transition-colors duration-500 cursor-default">
-            VERIZON
+            Electric &amp; Gas
           </span>
           <span className="hover:text-white transition-colors duration-500 cursor-default">
-            PG&E
+            Streaming
           </span>
           <span className="hover:text-white transition-colors duration-500 cursor-default">
-            SPECTRUM
+            Home Security
           </span>
         </div>
       </section>
@@ -233,133 +237,12 @@ export default function LandingPage() {
           </div>
         </div>
       </section>
-
-      {/* 4. Complex Metrics & Dashboard Case Study */}
+      {/* 4. Trust & Live Demo (honest - no fabricated certs or stats) */}
       <section
         id="metrics"
         className="py-24 px-6 border-t border-white/5 bg-[#030303]"
       >
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8">
-          <div className="lg:col-span-5 border border-white/10 bg-[#0a0a0a] rounded-xl p-10 flex flex-col justify-center relative overflow-hidden">
-            <div className="absolute -bottom-20 -left-20 w-64 h-64 bg-zinc-800/20 rounded-full blur-[80px]" />
-            <h2 className="text-3xl font-medium tracking-tight mb-6">
-              Enterprise Privacy
-            </h2>
-            <ul className="space-y-6 text-sm text-zinc-400">
-              <li className="flex items-start gap-4">
-                <div className="p-2 bg-white/5 rounded text-zinc-300">
-                  <svg
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                  >
-                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                  </svg>
-                </div>
-                <div>
-                  <strong className="block text-white mb-1">
-                    SOC-2 Type II Certified
-                  </strong>
-                  Rigorous security controls protecting your raw financial data.
-                </div>
-              </li>
-              <li className="flex items-start gap-4">
-                <div className="p-2 bg-white/5 rounded text-zinc-300">
-                  <svg
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                  >
-                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-                    <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-                  </svg>
-                </div>
-                <div>
-                  <strong className="block text-white mb-1">
-                    AES-256 Encryption at Rest
-                  </strong>
-                  Military-grade encryption for all stored utility credentials.
-                </div>
-              </li>
-            </ul>
-          </div>
-
-          <div className="lg:col-span-7 border border-white/10 bg-[#0a0a0a] rounded-xl p-8 flex flex-col">
-            <div className="flex justify-between items-center border-b border-white/10 pb-4 mb-6">
-              <h3 className="text-lg font-medium">
-                Continual Negotiation Metrics
-              </h3>
-              <div className="flex gap-2">
-                <div className="w-3 h-3 rounded-full bg-zinc-700" />
-                <div className="w-3 h-3 rounded-full bg-zinc-700" />
-                <div className="w-3 h-3 rounded-full bg-zinc-700" />
-              </div>
-            </div>
-
-            <div className="grid grid-cols-3 gap-4 mb-8">
-              <div className="bg-black/50 border border-white/5 p-4 rounded-lg">
-                <div className="text-xs text-zinc-500 mb-1">
-                  Negotiated Accounts
-                </div>
-                <div className="text-2xl font-semibold text-white">
-                  100,000+
-                </div>
-              </div>
-              <div className="bg-black/50 border border-white/5 p-4 rounded-lg">
-                <div className="text-xs text-zinc-500 mb-1">
-                  Average Savings
-                </div>
-                <div className="text-2xl font-semibold text-emerald-400">
-                  -$340.50
-                </div>
-              </div>
-              <div className="bg-black/50 border border-white/5 p-4 rounded-lg">
-                <div className="text-xs text-zinc-500 mb-1">System Status</div>
-                <div className="text-2xl font-semibold text-white">Optimal</div>
-              </div>
-            </div>
-
-            <div className="bg-black rounded-lg border border-white/5 p-4 font-mono text-xs text-zinc-400 flex-1">
-              <div className="text-zinc-600 mb-2">
-                {"// Agent executing live negotiation..."}
-              </div>
-              <div className="text-indigo-400">const</div>{" "}
-              <span className="text-white">agent</span> ={" "}
-              <span className="text-blue-300">new</span>{" "}
-              <span className="text-emerald-300">VoiceAgent</span>(userData);
-              <br />
-              <span className="text-white">agent</span>.
-              <span className="text-blue-300">connect</span>(
-              <span className="text-orange-300">
-                &apos;comcast_retention_line&apos;
-              </span>
-              );
-              <br />
-              <br />
-              <span className="text-zinc-600">
-                &gt; Authenticating with provider... [OK]
-              </span>
-              <br />
-              <span className="text-zinc-600">
-                &gt; Cross-referencing tier promotions... [FOUND]
-              </span>
-              <br />
-              <span className="text-zinc-600">
-                &gt; Initiating dispute protocol...
-              </span>
-              <br />
-              <span className="text-emerald-400 animate-pulse">
-                &gt; Rate successfully lowered by $45/mo.
-              </span>
-            </div>
-          </div>
-        </div>
+        <EnterpriseTrustSection />
       </section>
 
       {/* 5. Clean Footer */}
@@ -379,7 +262,7 @@ export default function LandingPage() {
               Privacy
             </Link>
             <Link href="#" className="hover:text-white transition-colors">
-              System Status
+              Contact
             </Link>
           </div>
         </div>

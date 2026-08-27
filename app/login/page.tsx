@@ -3,9 +3,6 @@
 export default function Home() {
   return (
     <main className="relative min-h-screen overflow-hidden bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
-      {/* 3D Bubble Background */}
-      <HeroBubble />
-
       {/* Content */}
       <div className="relative z-10 flex flex-col items-center justify-center min-h-screen text-white px-4">
         <div className="max-w-4xl mx-auto text-center">
@@ -37,19 +34,19 @@ export default function Home() {
             </a>
           </div>
 
-          {/* Trust Indicators - Replaced fake certifications */}
+                    {/* Trust Indicators - honest */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12 text-sm text-gray-400">
             <div className="bg-white/5 backdrop-blur-sm rounded-lg p-4">
-              <p className="text-white font-semibold">🔒 Enterprise Security</p>
-              <p>SOC 2 compliant infrastructure</p>
+              <p className="text-white font-semibold">Encrypted by design</p>
+              <p>Data encrypted in transit and at rest</p>
             </div>
             <div className="bg-white/5 backdrop-blur-sm rounded-lg p-4">
-              <p className="text-white font-semibold">⚡ Real-time AI</p>
+              <p className="text-white font-semibold">Real-time AI</p>
               <p>Powered by Claude & GPT-4</p>
             </div>
             <div className="bg-white/5 backdrop-blur-sm rounded-lg p-4">
-              <p className="text-white font-semibold">📊 Proven Results</p>
-              <p>Average 23% cost reduction</p>
+              <p className="text-white font-semibold">Early access</p>
+              <p>Now accepting pilot users</p>
             </div>
           </div>
         </div>

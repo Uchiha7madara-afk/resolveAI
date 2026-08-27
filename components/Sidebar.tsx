@@ -29,7 +29,7 @@ export default function Sidebar() {
 
   useEffect(() => {
     const supabase = createClient();
-    supabase.auth.getUser().then(({ data: { user } }) => {
+    supabase.auth.getUser().then(({ data: { user } }: { data: { user: { email?: string } | null } }) => {
       if (user?.email) {
         setUser({ email: user.email, name: user.email.split("@")[0] });
       }
@@ -113,3 +113,4 @@ export default function Sidebar() {
     </aside>
   );
 }
+

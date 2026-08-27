@@ -11,7 +11,7 @@ export default function SettingsPage() {
   useEffect(() => {
     createClient()
       .auth.getUser()
-      .then(({ data: { user } }) => setEmail(user?.email ?? null));
+      .then(({ data: { user } }: { data: { user: { email?: string } | null } }) => setEmail(user?.email ?? null));
   }, []);
 
   const handleSignOut = async () => {
@@ -69,3 +69,4 @@ export default function SettingsPage() {
     </div>
   );
 }
+
