@@ -1,4 +1,5 @@
 import Link from "next/link";
+import HeroVisual3D from "../components/HeroVisual3D";
 
 export default function LandingPage() {
   return (
@@ -83,6 +84,7 @@ export default function LandingPage() {
           {/* Hero Visual - Simulated Data Nodes */}
           <div className="relative h-[400px] w-full border border-white/10 rounded-xl bg-black/50 backdrop-blur-sm p-6 overflow-hidden flex flex-col justify-between">
             <div className="absolute inset-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
+            <HeroVisual3D />
             <div className="relative z-10 flex justify-between items-center text-xs font-mono text-zinc-500 mb-4">
               <span>Cost Factors</span>
               <span className="text-indigo-400">Negotiation Pulse</span>
@@ -325,7 +327,7 @@ export default function LandingPage() {
 
             <div className="bg-black rounded-lg border border-white/5 p-4 font-mono text-xs text-zinc-400 flex-1">
               <div className="text-zinc-600 mb-2">
-                // Agent executing live negotiation...
+                {"// Agent executing live negotiation..."}
               </div>
               <div className="text-indigo-400">const</div>{" "}
               <span className="text-white">agent</span> ={" "}
@@ -334,7 +336,9 @@ export default function LandingPage() {
               <br />
               <span className="text-white">agent</span>.
               <span className="text-blue-300">connect</span>(
-              <span className="text-orange-300">'comcast_retention_line'</span>
+              <span className="text-orange-300">
+                &apos;comcast_retention_line&apos;
+              </span>
               );
               <br />
               <br />

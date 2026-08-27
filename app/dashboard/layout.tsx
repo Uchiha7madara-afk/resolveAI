@@ -1,34 +1,12 @@
-"use client";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import Sidebar from "../../components/Sidebar";
 import TopBar from "../../components/TopBar";
-import { isAuthenticated } from "../../utils/auth";
 
+// Route protection is enforced server-side by middleware.ts (Supabase session).
 export default function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const router = useRouter();
-  const [checked, setChecked] = useState(false);
-
-  useEffect(() => {
-    if (!isAuthenticated()) {
-      router.push("/login");
-    } else {
-      setChecked(true);
-    }
-  }, [router]);
-
-  if (!checked) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-zinc-50">
-        <div className="text-sm text-zinc-400">Loading...</div>
-      </div>
-    );
-  }
-
   return (
     <div className="min-h-screen bg-zinc-50 flex">
       <Sidebar />
